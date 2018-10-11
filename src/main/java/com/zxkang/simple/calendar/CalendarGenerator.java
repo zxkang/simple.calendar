@@ -1,5 +1,6 @@
 package com.zxkang.simple.calendar;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
@@ -35,7 +36,11 @@ public class CalendarGenerator {
 		calendar.set(year, month - 1, 1);
 		int day = calendar.get(Calendar.DAY_OF_WEEK);
 		int start = Calendar.SUNDAY;
-		calendar.add(Calendar.DATE, -day + start);
+		if (year != 1) {
+			calendar.add(Calendar.DATE, -day + start);
+		} else {
+			calendar.add(Calendar.DATE, 0);
+		}
 		while (start < day) {
 			sb.append(" \t");
 			start++;
@@ -68,10 +73,13 @@ public class CalendarGenerator {
 	public static void main(String[] args) {
 		CalendarGenerator cg = new CalendarGenerator();
 		Scanner scanner = new Scanner(System.in);
-		System.out.println(PROMPTS);
-		String line = scanner.nextLine().trim();
-		String result = cg.generator(line);
-		scanner.close();
-		System.out.println(result);
+		while (true) {
+			System.out.println(PROMPTS);
+			String line = scanner.nextLine().trim();
+			String result = cg.generator(line);
+			// scanner.close();
+			System.out.println(result);
+		}
 	}
 }
+
